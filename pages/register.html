@@ -16,6 +16,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
 
     <link rel="stylesheet" href="../css/auth.css">
+    <link rel="stylesheet" href="../css/toast.css">
+
 
 </head>
 
@@ -97,7 +99,8 @@
 
         </section>
 
-         <section class="right-section">
+
+        <section class="right-section">
 
             <div class="glass-card">
 
@@ -129,7 +132,7 @@
 
                                 <i class="fa-regular fa-user"></i>
 
-                                <input type="text" id="name" placeholder="John Doe" required>
+                                <input type="text" id="full-name" placeholder="John Doe" required>
 
                             </div>
 
@@ -201,7 +204,7 @@
 
                             <label>
 
-                                <input type="checkbox" required>
+                                <input type="checkbox" required id="terms">
 
                                 I agree with Terms & Privacy Policy
 
@@ -259,6 +262,9 @@
 
     </main>
 
+    <div id="toast-container"></div>
+
+    <script type="module" src="../js/auth/register.js"></script>
 </body>
 
 </html>
