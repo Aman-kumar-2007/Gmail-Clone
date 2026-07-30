@@ -149,4 +149,29 @@ export function getInboxEmails(uid, callback) {
 
 }
 
+export async function markAsRead(emailId){
+
+    try{
+        const emailRef = doc(db,"emails",emailId);
+        
+        await updateDoc(emailRef,{
+            "receiver.read": true
+        });
+
+        return {
+            success:true
+        };
+
+    }catch(error){
+
+        return{
+            success:false,
+            error:error.message
+        };
+
+    }
+
+}
+
+
 
