@@ -353,3 +353,172 @@ body {
 .empty-state h2 {
   margin: 16px 0 8px
 }
+
+@media(max-width:992px) {
+
+  .search-box {
+    width: 100%
+  }
+}
+
+@media(max-width:768px) {
+  .welcome-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .sidebar {
+    display: block;
+    position: fixed;
+    top: 60px;
+    left: -260px;
+    width: 240px;
+    height: calc(100vh - 60px);
+    background: var(--surface);
+    transition: left .3s ease;
+    z-index: 1000;
+
+  }
+
+  .sidebar.active {
+    left: 0;
+
+  }
+
+
+  .stats {
+    width: 100%;
+    justify-content: space-between
+  }
+
+  .navbar {
+
+    padding: 0 12px;
+
+  }
+
+  .logo span {
+
+    display: none;
+
+  }
+
+  .nav-right {
+
+    gap: 8px;
+
+  }
+
+  .content {
+
+    padding: 12px;
+
+  }
+
+  .welcome-card {
+
+    padding: 16px;
+
+    border-radius: 16px;
+
+  }
+
+  .welcome-card h1 {
+
+    font-size: 1.5rem;
+
+  }
+
+  .stats {
+
+    width: 100%;
+
+  }
+
+  .stat-card {
+
+    flex: 1;
+
+  }
+
+  .toolbar {
+
+    overflow-x: auto;
+
+  }
+
+  .toolbar::-webkit-scrollbar {
+
+    display: none;
+
+  }
+}
+
+@media(max-width:600px) {
+  .nav-center {
+    display: none
+  }
+
+  .content {
+    padding: 16px
+  }
+
+  .email-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .email-meta {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .email-details h3 {
+
+    font-size: 15px;
+
+  }
+
+  .email-details h4 {
+
+    font-size: 14px;
+
+  }
+
+  .email-details p {
+
+    white-space: normal;
+
+  }
+
+  .email-meta {
+
+    width: 100%;
+
+    justify-content: space-between;
+
+    flex-direction: row;
+
+  }
+
+  .compose-modal {
+
+    width: 95%;
+    height: 90vh;
+
+  }
+
+  #compose-form textarea {
+
+    flex: 1;
+    height: 300px;
+
+  }
+
+
+
+}
