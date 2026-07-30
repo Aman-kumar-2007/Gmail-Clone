@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbox | Gmail Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/inbox.css">
+    <link rel="stylesheet" href="../css/toast.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <header class="navbar">
+        <div class="nav-left">
+            <button class="icon-btn" id="menu-btn"><i data-lucide="menu"></i></button>
+            <a class="logo"><i data-lucide="mail"></i><span>MailFlow</span></a>
+        </div>
+        <div class="nav-center">
+            <div class="search-box">
+                <i data-lucide="search"></i>
+                <input type="text" placeholder="Search your mail...">
+            </div>
+        </div>
+        <div class="nav-right">
+            <button class="icon-btn"><i data-lucide="moon"></i></button>
+            <button class="icon-btn"><i data-lucide="bell"></i></button>
+
+            <div class="profile" id="profile">
+                <img id="profile-avatar" src="" alt="Profile">
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="user-info">
+                        <h4 id="user-name">Loading...</h4>
+                        <p id="user-email">Loading...</p>
+                    </div>
+                    <hr>
+                    <button id="logout-btn">
+                        <i data-lucide="log-out"></i>
+                        Logout
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </header>
+
+    <main class="dashboard">
+        <aside class="sidebar" id="sidebar">
+
+            <button class="compose-btn" id="compose-btn">
+                <i data-lucide="square-pen"></i>
+                <span>Compose</span>
+            </button>
+
+            <nav>
+
+                <a class="active">
+                    <i data-lucide="inbox"></i>
+                    <span>Inbox</span>
+                </a>
+
+                <a>
+                    <i data-lucide="send"></i>
+                    <span>Sent</span>
+                </a>
+
+                <a>
+                    <i data-lucide="file-pen-line"></i>
+                    <span>Drafts</span>
+                </a>
+
+                <a>
+                    <i data-lucide="star"></i>
+                    <span>Starred</span>
+                </a>
+
+                <a>
+                    <i data-lucide="trash-2"></i>
+                    <span>Trash</span>
+                </a>
+
+                <a>
+                    <i data-lucide="settings"></i>
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+        </aside>
+
+        <section class="content-wrapper">
+
+
+            <section id="inbox-view">
+
+
+                <section class="content">
+                    <section class="welcome-card">
+                        <div>
+                            <h1>👋 Welcome Back</h1>
+                            <p>Manage your emails with speed and simplicity.</p>
+                        </div>
+                        <div class="stats">
+                            <div class="stat-card">
+                                <h2>12</h2><span>Inbox</span>
+                            </div>
+                            <div class="stat-card">
+                                <h2>4</h2><span>Sent</span>
+                            </div>
+                            <div class="stat-card">
+                                <h2>2</h2><span>Drafts</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="toolbar">
+                        <div class="toolbar-left">
+                            <button><i data-lucide="refresh-cw"></i></button>
+                            <button><i data-lucide="archive"></i></button>
+                            <button><i data-lucide="trash-2"></i></button>
+                        </div>
+                        <div class="toolbar-right">
+                            <button><i data-lucide="filter"></i></button>
+                        </div>
+                    </section>
+
+                    <section id="email-list" class="email-list">
+                        <!-- <article class="email-card">
+                         <div class="avatar">R</div>
+                         <div class="email-details">
+                             <h3>Rahul Sharma</h3>
+                             <h4>Project Status Update</h4>
+                             <p>The UI looks great. Let's continue with Firestore integration tomorrow.</p>
+                         </div>
+                         <div class="email-meta"><span>10:42 AM</span><i data-lucide="star"></i></div>
+                     </article>
+     
+                     <article class="email-card">
+                         <div class="avatar">H</div>
+                         <div class="email-details">
+                             <h3>HR Team</h3>
+                             <h4>Interview Invitation</h4>
+                             <p>Your interview has been scheduled for Friday at 10:00 AM.</p>
+                         </div>
+                         <div class="email-meta"><span>Yesterday</span><i data-lucide="star"></i></div>
+                     </article>
+     
+                     <article class="email-card">
+                         <div class="avatar">P</div>
+                         <div class="email-details">
+                             <h3>Priya</h3>
+                             <h4>Weekend Plan</h4>
+                             <p>Let's discuss the final project design after lunch.</p>
+                         </div>
+                         <div class="email-meta"><span>Jul 27</span><i data-lucide="star"></i></div>
+                     </article> -->
+                    </section>
+
+                    <section class="empty-state" hidden id="empty-state">
+                        <i data-lucide="mail-x"></i>
+                        <h2>No Emails Yet</h2>
+                        <p>Compose your first email to get started.</p>
+                    </section>
+                </section>
+
+            </section>
