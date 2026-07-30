@@ -125,3 +125,28 @@ export async function sendEmail(emailData) {
 
     }
 }
+
+export function getInboxEmails(uid, callback) {
+
+
+    const q = query(
+        collection(db, "emails"),
+        where("receiverId", "==", uid),
+        where("receiver.deleted", "==", false),
+        orderBy("createdAt", "desc")
+    );
+
+    return onSnapshot(q, (snapshot) => {
+
+        const emails = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        callback(emails);
+
+    });
+
+}
+
+
