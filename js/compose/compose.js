@@ -25,3 +25,101 @@ export function openCompose() {
     receiverEmail.focus();
 
 }
+
+export function closeCompose() {
+
+    composeOverlay.classList.remove("active");
+
+    composeForm.reset();
+
+}
+
+composeBtn.addEventListener("click", openCompose);
+
+closeComposeBtn.addEventListener("click", closeCompose);
+
+cancelComposeBtn.addEventListener("click", closeCompose);
+
+
+composeOverlay.addEventListener("click", (event) => {
+
+    if (event.target === composeOverlay) {
+        closeCompose();
+    }
+
+});
+
+
+document.addEventListener("keydown", (event) => {
+
+    if (event.key === "Escape" && composeOverlay.classList.contains("active")) {
+        closeCompose();
+    }
+
+});
+
+composeForm.addEventListener("submit", handleComposeSubmit);
+
+async function handleComposeSubmit(event) {
+    event.preventDefault();
+
+    const emailData = {
+        receiverEmail: receiverEmail.value.trim(),
+        subject: subject.value.trim(),
+        body: message.value.trim()
+
+    };
+
+    if (
+        !emailData.receiverEmail ||
+        !emailData.subject ||
+        !emailData.body
+    ) {
+        showToast("Please fill all fields.", "warning");
+        return;
+    }
+
+    const currentUser = auth.currentUser;
+
+    if (
+        emailData.receiverEmail.toLowerCase() ===
+        currentUser.email.toLowerCase()
+    ) {
+        showToast("You can't send an email to yourself.", "warning");
+        return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(emailData.receiverEmail)) {
+        showToast("Please enter a valid email address.", "error");
+        return;
+    }
+
+    try {
+        setLoading(true);
+        const result = await sendEmail(emailData);
+
+        console.log(result);
+
+        if (!result.success) {
+            showToast(result.error, "error");
+            return;
+
+        }
+
+        showToast("Email sent successfully.", "success");
+        composeForm.reset();
+
+        closeCompose();
+
+    } catch (error) {
+        console.error(error);
+        showToast("Something went wrong.", "error");
+
+    } finally {
+        setLoading(false);
+
+    }
+
+}
