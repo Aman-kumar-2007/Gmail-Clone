@@ -124,3 +124,58 @@ function renderInboxEmails(emails) {
     lucide.createIcons();
 
 }
+
+// page changing email opening
+
+import { getUserByUID } from "../services/userService.js";
+import { markAsRead } from "../services/emailService.js";
+
+const inboxView = document.getElementById("inbox-view");
+const emailView = document.getElementById("email-view");
+const backBtn = document.getElementById("back-btn");
+const emailSubject = document.getElementById("email-subject");
+const senderName = document.getElementById("sender-name");
+const senderEmail = document.getElementById("sender-email");
+const emailDate = document.getElementById("email-date");
+const emailBody = document.getElementById("email-body");
+const senderAvatar = document.getElementById("sender-avatar");
+
+
+async function openEmail(email) {
+
+    await markAsRead(email.id);
+
+    inboxView.classList.add("hidden");
+    emailView.classList.remove("hidden");
+
+    emailSubject.textContent = email.subject || "(No Subject)";
+    senderName.textContent = email.senderName;
+    senderEmail.textContent = email.senderEmail;
+    emailBody.textContent = email.body;
+    emailDate.textContent = formatTime(email.createdAt);
+
+    const result = await getUserByUID(email.senderId);
+
+    if (result.success) {
+        senderAvatar.src = result.data.photoURL;
+    }
+
+    if (email.createdAt) {
+        emailDate.textContent =
+            email.createdAt.toDate().toLocaleString();
+    } else {
+        emailDate.textContent = "";
+    }
+
+    lucide.createIcons();
+}
+
+backBtn.addEventListener("click", () => {
+
+    emailView.classList.add("hidden");
+    inboxView.classList.remove("hidden");
+
+});
+
+
+
