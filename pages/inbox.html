@@ -165,3 +165,131 @@
                 </section>
 
             </section>
+
+             <!-- 
+            
+            
+            EMAIL PAGE SECTION 
+            
+            
+            -->
+            <section id="email-view" class="hidden">
+
+                <div class="email-header">
+
+                    <button id="back-btn">
+                        <i data-lucide="arrow-left"></i>
+                    </button>
+
+                    <div class="email-actions">
+                        <button id="star-btn">
+                            <i data-lucide="star"></i>
+                        </button>
+
+                        <button id="delete-btn">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+                <div class="email-details">
+
+                    <h2 id="email-subject">
+                        Loading...
+                    </h2>
+
+                    <div class="sender-info">
+
+                        <img id="sender-avatar" src="" alt="Avatar">
+
+                        <div>
+
+                            <h3 id="sender-name">
+                                Sender Name
+                            </h3>
+
+                            <p id="sender-email">
+                                sender@email.com
+                            </p>
+
+                        </div>
+
+                        <span id="email-date">
+                            Today
+                        </span>
+
+                    </div>
+
+                    <hr>
+
+                    <div id="email-body">
+                        Email Body...
+                    </div>
+
+                </div>
+
+            </section>
+
+        </section>
+
+
+    </main>
+
+    <!-- 
+    
+    COMPOSE SECTION POP UP 
+     
+    -->
+
+    <div class="compose-overlay" id="compose-overlay">
+
+        <div class="compose-modal">
+
+            <div class="compose-header">
+
+                <h3>New Message</h3>
+
+                <button id="close-compose">
+                    <i data-lucide="x"></i>
+                </button>
+
+            </div>
+
+            <form id="compose-form">
+
+                <input type="email" id="receiver-email" placeholder="To" required>
+
+                <input type="text" id="subject" placeholder="Subject">
+
+                <textarea id="message" placeholder="Write your message..." required></textarea>
+
+                <div class="compose-footer">
+
+                    <button type="submit" class="send-btn" id="send-btn">
+                        Send
+                    </button>
+
+                    <button type="button" id="cancel-compose" class="cancel-btn">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script>lucide.createIcons();</script>
+    <!-- <script type="module" src="../js/auth/authGuard.js"></script> -->
+    <script type="module" src="../js/dashboard/inbox.js"></script>
+    <script type="module" src="../js/compose/compose.js"></script>
+    <script type="module" src="../js/utils/toast.js"></script>
+    <script type="module" src="../js/dashboard/header.js"></script>
+</body>
+
+</html>
