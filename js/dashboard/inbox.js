@@ -66,3 +66,61 @@ function formatTime(timestamp) {
 
 }
 
+function renderInboxEmails(emails) {
+
+    emailList.innerHTML = "";
+
+    if (emails.length === 0) {
+        emptyState.style.display = "flex";
+        return;
+    }
+
+    emptyState.style.display = "none";
+
+    emails.forEach((email) => {
+
+        const avatar = email.senderName
+            ? email.senderName.charAt(0).toUpperCase()
+            : "?";
+
+        const preview =
+            email.body.length > 80
+                ? email.body.substring(0, 80) + "..."
+                : email.body;
+
+        const card = document.createElement("article");
+
+        card.className = email.receiver.read ? "email-card" : "email-card unread";
+
+        card.innerHTML = `
+
+            <div class="avatar">
+                ${avatar}
+            </div>
+
+            <div class="email-details">
+                <h3"${email.receiver.read ? "" : "unread"}">${email.senderName}</h3>
+                <p>${preview}</p>
+
+            </div>
+
+            <div class="email-meta">
+                <span>${formatTime(email.createdAt)}</span>
+                <i data-lucide="star"></i>
+
+            </div>
+
+        `;
+
+        card.addEventListener("click", () => {
+            openEmail(email);
+
+        });
+
+        emailList.appendChild(card);
+
+    });
+
+    lucide.createIcons();
+
+}
