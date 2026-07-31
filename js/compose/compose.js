@@ -124,3 +124,29 @@ async function handleComposeSubmit(event) {
 
 }
 
+export function openReply(email, currentFolder) {
+
+    openCompose();
+
+    receiverEmail.value = currentFolder === "sent" ? email.receiverEmail : email.senderEmail;
+
+    subject.value = email.subject.startsWith("Re:")
+        ? email.subject
+        : `Re: ${email.subject}`;
+
+    message.value = `
+
+----------------------------
+
+On ${email.createdAt.toDate().toLocaleString()},
+
+${email.senderName} wrote:
+
+${email.body}
+
+`;
+
+    message.focus();
+    message.setSelectionRange(0, 0);
+
+}
