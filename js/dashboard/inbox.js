@@ -249,3 +249,10 @@ trashLink.addEventListener("click", () => {
     setActiveLink(trashLink);
     loadTrash();
 });
+
+// inbox emails
+
+inboxLink.addEventListener("click", () => {
+    setActiveLink(inboxLink);
+    loadInbox();
+});
