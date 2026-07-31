@@ -177,5 +177,35 @@ backBtn.addEventListener("click", () => {
 
 });
 
+// star function
+emailStarBtn.addEventListener("click", async () => {
 
+    const isStarred = currentFolder === "sent"
+        ? currentEmail.sender.starred
+        : currentEmail.receiver.starred;
+
+    const result = await toggleStar(
+        currentEmail.id,
+        isStarred,
+        currentFolder
+    );
+
+    if (result.success) {
+
+        if (currentFolder === "sent") {
+            currentEmail.sender.starred = !currentEmail.sender.starred;
+        } else {
+            currentEmail.receiver.starred = !currentEmail.receiver.starred;
+        }
+
+        const updatedStar = currentFolder === "sent" ? currentEmail.sender.starred : currentEmail.receiver.starred;
+
+        const icon = emailStarBtn.querySelector("i");
+
+        icon.className = updatedStar
+            ? "fa-solid fa-star starred"
+            : "fa-regular fa-star";
+    }
+
+});
 
