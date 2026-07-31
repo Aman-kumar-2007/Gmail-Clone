@@ -98,6 +98,27 @@ function loadSent() {
 
 }
 
+async function loadStarred() {
+
+    currentFolder = "starred";
+
+    if (unsubscribe) {
+        unsubscribe();
+    }
+
+    showLoader();
+
+    unsubscribe = getStarredEmails(currentUser.uid, (emails) => {
+        setTimeout(() => {
+            currentEmails = emails;
+            renderInboxEmails(emails);
+
+        }, 300);
+
+    });
+}
+
+
 
 onAuthStateChanged(auth, (user) => {
       if (!user) return;
