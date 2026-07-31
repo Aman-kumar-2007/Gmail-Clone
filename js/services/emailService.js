@@ -273,3 +273,25 @@ export async function restoreEmail(emailId) {
     }
 
 }
+
+export function getSentEmails(uid, callback) {
+
+    const q = query(
+        collection(db, "emails"),
+        where("senderId", "==", uid),
+        where("sender.deleted", "==", false),
+        orderBy("createdAt", "desc")
+    );
+
+    return onSnapshot(q, (snapshot) => {
+
+        const emails = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        callback(emails);
+
+    });
+
+}
