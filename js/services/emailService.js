@@ -200,3 +200,30 @@ export async function toggleStar(emailId, isStarred, folder) {
 
 }
 
+export async function deleteEmail(emailId, folder) {
+
+    try {
+        const updateData = {};
+
+        if (folder === "sent") {
+            updateData["sender.deleted"] = true;
+        } else {
+            updateData["receiver.deleted"] = true;
+        }
+
+        await updateDoc(doc(db, "emails", emailId), updateData);
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
