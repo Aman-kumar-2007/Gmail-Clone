@@ -58,7 +58,7 @@ document.addEventListener("keydown", (event) => {
 
 });
 
-composeForm.addEventListener("submit", handleComposeSubmit);
+omposeForm.addEventListener("submit", handleComposeSubmit);
 
 async function handleComposeSubmit(event) {
     event.preventDefault();
@@ -123,3 +123,4 @@ async function handleComposeSubmit(event) {
     }
 
 }
+
