@@ -250,3 +250,26 @@ export function getTrashEmails(uid, callback) {
     });
 
 }
+
+export async function restoreEmail(emailId) {
+
+    try {
+
+        await updateDoc(doc(db, "emails", emailId), {
+            "receiver.deleted": false
+        });
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error
+        };
+
+    }
+
+}
