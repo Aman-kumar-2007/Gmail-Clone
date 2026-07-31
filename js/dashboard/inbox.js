@@ -29,9 +29,37 @@ menuBtn.addEventListener("click", () => {
 
 });
 
-import { getInboxEmails } from "../services/emailService.js";
+import { getInboxEmails, getTrashEmails, restoreEmail, getSentEmails , getStarredEmails } from "../services/emailService.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { auth } from "../firebase/config.js";
+import { toggleStar, deleteEmail } from "../services/emailService.js";
+
+let currentFolder = "inbox";
+let currentUser = null;
+let unsubscribe = null;
+
+let currentEmails = [];
+let currentSearch = "";
+
+function loadInbox() {
+    currentFolder = "inbox";
+    showLoader();
+
+    if (unsubscribe) {
+        unsubscribe();
+    }
+
+    unsubscribe = getInboxEmails(currentUser.uid, (emails) => {
+        setTimeout(() => {
+            currentEmails = emails;
+            renderInboxEmails(emails);
+        }, 300);
+
+    }
+    );
+
+
+}
 
 onAuthStateChanged(auth, (user) => {
 
