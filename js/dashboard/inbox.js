@@ -256,3 +256,18 @@ inboxLink.addEventListener("click", () => {
     setActiveLink(inboxLink);
     loadInbox();
 });
+
+// sent emails
+
+sentLink.addEventListener("click", () => {
+    setActiveLink(sentLink);
+    loadSent();
+
+});
+
+// starred emails
+const starredLink = document.getElementById("starred-link");
+starredLink.addEventListener("click", () => {
+    setActiveLink(starredLink);
+    loadStarred();
+});
