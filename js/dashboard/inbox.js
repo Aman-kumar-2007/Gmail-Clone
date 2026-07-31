@@ -61,6 +61,25 @@ function loadInbox() {
 
 }
 
+function loadTrash() {
+    currentFolder = "trash";
+    showLoader();
+
+    if (unsubscribe) {
+        unsubscribe();
+    }
+
+    unsubscribe = getTrashEmails(currentUser.uid, (emails) => {
+        setTimeout(() => {
+            currentEmails = emails;
+            renderInboxEmails(emails);
+        }, 300);
+
+    }
+    );
+
+}
+
 onAuthStateChanged(auth, (user) => {
       if (!user) return;
       currentUser = user;
