@@ -238,3 +238,14 @@ function setActiveLink(link) {
     link.classList.add("active");
 
 }
+
+const trashLink = document.getElementById("trash-link");
+const inboxLink = document.getElementById("inbox-link");
+const sentLink = document.getElementById("sent-link");
+
+// delete emails render
+
+trashLink.addEventListener("click", () => {
+    setActiveLink(trashLink);
+    loadTrash();
+});
