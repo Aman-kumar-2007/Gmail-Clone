@@ -2,6 +2,9 @@ const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const emptyState = document.getElementById("empty-state");
 const emailList = document.getElementById("email-list");
+const skeletonLoader = document.getElementById("skeleton-loader");
+const deleteBtn = document.getElementById("delete-btn");
+const searchInput = document.getElementById("search-input");
 
 document.addEventListener("click", (e) => {
     if (window.innerWidth <= 768 &&
@@ -429,6 +432,18 @@ searchInput.addEventListener("input", (e) => {
 
 });
 
+searchInput.addEventListener("keydown", (e) => {
+
+    if (e.key === "Escape") {
+        searchInput.value = "";
+        currentSearch = "";
+        renderInboxEmails(currentEmails);
+        searchInput.blur();
+
+    }
+
+});
+
 
 // reply logics
 
@@ -441,4 +456,6 @@ replyBtn.addEventListener("click", () => {
     openReply(currentEmail, currentFolder);
 
 });
+
+
 
