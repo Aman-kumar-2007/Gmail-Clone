@@ -80,6 +80,25 @@ function loadTrash() {
 
 }
 
+function loadSent() {
+    currentFolder = "sent";
+    showLoader();
+
+    if (unsubscribe) {
+        unsubscribe();
+    }
+
+    unsubscribe = getSentEmails(currentUser.uid, (emails) => {
+        setTimeout(() => {
+            currentEmails = emails;
+            renderInboxEmails(emails);
+        }, 300);
+
+    });
+
+}
+
+
 onAuthStateChanged(auth, (user) => {
       if (!user) return;
       currentUser = user;
