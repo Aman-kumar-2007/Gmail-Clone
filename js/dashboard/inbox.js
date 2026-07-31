@@ -209,3 +209,23 @@ emailStarBtn.addEventListener("click", async () => {
 
 });
 
+// delete function 
+
+deleteBtn.addEventListener("click", async () => {
+
+    let result;
+    if (currentFolder === "trash") {
+        result = await restoreEmail(currentEmail.id);
+
+    } else {
+        result = await deleteEmail(currentEmail.id, currentFolder);
+    }
+
+    if (result.success) {
+        emailView.classList.add("hidden");
+        inboxView.classList.remove("hidden");
+    }
+
+});
+
+
