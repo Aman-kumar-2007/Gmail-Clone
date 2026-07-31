@@ -1093,3 +1093,35 @@ body {
   }
 
 }
+
+/* Star emails css */
+
+.star-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  color: #9CA3AF;
+}
+
+.star-btn i {
+  transition: .3s;
+
+}
+
+.star-btn .fa-solid {
+  color: #FACC15;
+
+}
+
+.star-btn:hover {
+  transform: scale(1.15);
+
+}
+
+.starred {
+  color: #FFD54F;
+  fill: #FFD54F;
+
+}
+
