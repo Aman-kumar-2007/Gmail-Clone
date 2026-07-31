@@ -227,3 +227,26 @@ export async function deleteEmail(emailId, folder) {
     }
 
 }
+
+
+export function getTrashEmails(uid, callback) {
+
+    const q = query(
+        collection(db, "emails"),
+        where("receiverId", "==", uid),
+        where("receiver.deleted", "==", true),
+        orderBy("createdAt", "desc")
+    );
+
+    return onSnapshot(q, (snapshot) => {
+
+        const emails = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        callback(emails);
+
+    });
+
+}
