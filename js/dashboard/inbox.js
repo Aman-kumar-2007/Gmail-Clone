@@ -143,6 +143,14 @@ function formatTime(timestamp) {
 
 }
 
+function highlightText(text, searchText) {
+
+    if (!searchText) return text;
+    const regex = new RegExp(`(${searchText})`, "gi");
+    return text.replace(regex, `<mark>$1</mark>`);
+
+}
+
 function renderInboxEmails(emails) {
 
     emailList.innerHTML = "";
