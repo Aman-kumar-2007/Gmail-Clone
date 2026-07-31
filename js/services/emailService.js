@@ -173,5 +173,30 @@ export async function markAsRead(emailId){
 
 }
 
+export async function toggleStar(emailId, isStarred, folder) {
+    try {
+        const updateData = {};
 
+        if (folder === "sent") {
+            updateData["sender.starred"] = !isStarred;
+        } else {
+            updateData["receiver.starred"] = !isStarred;
+        }
+
+        await updateDoc(doc(db, "emails", emailId), updateData);
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
 
