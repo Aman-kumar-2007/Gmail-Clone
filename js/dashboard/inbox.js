@@ -401,3 +401,30 @@ function hideLoader() {
     emailList.classList.remove("hidden");
 
 }
+
+// search logic 
+
+searchInput.addEventListener("input", (e) => {
+
+    const searchText = e.target.value.toLowerCase().trim();
+    currentSearch = searchText;
+    if (searchText === "") {
+        currentSearch = "";
+        renderInboxEmails(currentEmails);
+        return;
+    }
+    const filteredEmails = currentEmails.filter((email) => {
+        return (
+            email.senderName?.toLowerCase().includes(searchText) ||
+            email.receiverName?.toLowerCase().includes(searchText) ||
+            email.senderEmail?.toLowerCase().includes(searchText) ||
+            email.receiverEmail?.toLowerCase().includes(searchText) ||
+            email.subject?.toLowerCase().includes(searchText) ||
+            email.body?.toLowerCase().includes(searchText)
+        );
+
+    });
+
+    renderInboxEmails(filteredEmails);
+
+});
