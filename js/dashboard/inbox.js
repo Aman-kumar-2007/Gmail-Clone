@@ -213,22 +213,47 @@ const senderEmail = document.getElementById("sender-email");
 const emailDate = document.getElementById("email-date");
 const emailBody = document.getElementById("email-body");
 const senderAvatar = document.getElementById("sender-avatar");
+const emailStarBtn = document.getElementById("email-star-btn");
 
+let currentEmail = null;
 
 async function openEmail(email) {
 
-    await markAsRead(email.id);
+    currentEmail = email;
+
+    const icon = emailStarBtn.querySelector("i");
+    const isStarred = currentFolder === "sent"
+        ? email.sender.starred
+        : email.receiver.starred;
+
+    icon.className = isStarred
+        ? "fa-solid fa-star starred"
+        : "fa-regular fa-star";
+
+    if (currentFolder !== "sent") {
+        await markAsRead(email.id);
+    }
 
     inboxView.classList.add("hidden");
     emailView.classList.remove("hidden");
 
     emailSubject.textContent = email.subject || "(No Subject)";
-    senderName.textContent = email.senderName;
-    senderEmail.textContent = email.senderEmail;
+
+    if (currentFolder === "sent") {
+        senderName.textContent = email.receiverName;
+        senderEmail.textContent = email.receiverEmail;
+
+    } else {
+        senderName.textContent = email.senderName;
+        senderEmail.textContent = email.senderEmail;
+
+    }
+
     emailBody.textContent = email.body;
     emailDate.textContent = formatTime(email.createdAt);
 
-    const result = await getUserByUID(email.senderId);
+    const userId = currentFolder === "sent" ? email.receiverId : email.senderId;
+    const result = await getUserByUID(userId);
 
     if (result.success) {
         senderAvatar.src = result.data.photoURL;
@@ -239,6 +264,22 @@ async function openEmail(email) {
             email.createdAt.toDate().toLocaleString();
     } else {
         emailDate.textContent = "";
+    }
+
+    const deleteIcon = deleteBtn.querySelector("i");
+
+    if (currentFolder === "trash") {
+        deleteBtn.innerHTML = `<i data-lucide="undo-2"></i>`;
+        deleteBtn.title = "Restore";
+    } else {
+        deleteBtn.innerHTML = `<i data-lucide="trash-2"></i>`;
+        deleteBtn.title = "Move to Trash";
+    }
+
+    if (currentFolder === "trash") {
+        replyBtn.style.display = "none";
+    } else {
+        replyBtn.style.display = "flex";
     }
 
     lucide.createIcons();
