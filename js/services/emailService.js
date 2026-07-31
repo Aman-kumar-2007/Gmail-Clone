@@ -295,3 +295,58 @@ export function getSentEmails(uid, callback) {
     });
 
 }
+
+export function getStarredEmails(userId, callback) {
+
+    let inboxEmails = [];
+    let sentEmails = [];
+
+    const inboxQuery = query(
+        collection(db, "emails"),
+        where("receiverId", "==", userId),
+        where("receiver.starred", "==", true),
+        where("receiver.deleted", "==", false),
+        orderBy("createdAt", "desc")
+    );
+
+    const sentQuery = query(
+        collection(db, "emails"),
+        where("senderId", "==", userId),
+        where("sender.starred", "==", true),
+        where("sender.deleted", "==", false),
+        orderBy("createdAt", "desc")
+    );
+
+    const unsubscribeInbox = onSnapshot(inboxQuery, (snapshot) => {
+        inboxEmails = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        const allEmails = [...inboxEmails, ...sentEmails];
+        allEmails.sort((a, b) => {
+             return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
+        });
+
+        callback(allEmails);
+    });
+
+    const unsubscribeSent = onSnapshot(sentQuery, (snapshot) => {
+        sentEmails = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        const allEmails = [...inboxEmails, ...sentEmails];
+        allEmails.sort((a, b) => {
+            return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
+        });
+
+        callback(allEmails);
+    });
+
+    return () => {
+        unsubscribeInbox();
+        unsubscribeSent();
+    };
+}
