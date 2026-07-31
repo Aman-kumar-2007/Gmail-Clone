@@ -1,3 +1,4 @@
+/* ========= Root ========= */
 :root {
   --bg: #0b1220;
   --surface: #111827;
@@ -189,6 +190,16 @@ body {
   color: #fff;
 }
 
+nav a.active i {
+  color: #4F8DFD;
+
+}
+
+nav a:hover {
+  transform: translateX(6px);
+
+}
+
 .content {
   flex: 1;
   padding: 28px;
@@ -236,6 +247,7 @@ body {
   font-size: 1.5rem;
 }
 
+
 .toolbar {
   display: flex;
   justify-content: space-between;
@@ -281,8 +293,6 @@ body {
   display: flex;
   align-items: center;
   gap: 18px;
-  /* background: var(--card);
-  border: 1px solid var(--border); */
   background: #1A2334;
   border: 1px solid rgba(255, 255, 255, .08);
   border-radius: 18px;
@@ -290,6 +300,18 @@ body {
   transition: var(--transition);
   cursor: pointer;
   transition: .3s;
+  opacity: 0;
+  transform: translateY(12px);
+  animation: fadeCard .35s forwards;
+
+}
+
+@keyframes fadeCard {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+
+  }
 
 }
 
@@ -522,6 +544,7 @@ body {
 
 
 }
+
 
 .compose-overlay {
   position: fixed;
@@ -801,11 +824,6 @@ body {
   width: 100%;
 }
 
-.hidden {
-
-  display: none;
-}
-
 #email-view {
   background: #121b2b;
   border: 1px solid #263247;
@@ -916,6 +934,7 @@ body {
   line-height: 1.9;
   color: #E2E8F0;
   white-space: pre-wrap;
+  height: 40vh;
 
 
 }
@@ -1089,7 +1108,6 @@ body {
   #email-body {
     padding: 16px;
     font-size: 14px;
-
   }
 
 }
@@ -1174,4 +1192,3 @@ mark {
     font-weight: 500;
     line-height: inherit;
 }
-
