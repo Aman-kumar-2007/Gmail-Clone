@@ -6,6 +6,7 @@ const skeletonLoader = document.getElementById("skeleton-loader");
 const deleteBtn = document.getElementById("delete-btn");
 const searchInput = document.getElementById("search-input");
 
+
 document.addEventListener("click", (e) => {
     if (window.innerWidth <= 768 &&
         !sidebar.contains(e.target) &&
@@ -31,6 +32,7 @@ menuBtn.addEventListener("click", () => {
     }
 
 });
+
 
 import { getInboxEmails, getTrashEmails, restoreEmail, getSentEmails , getStarredEmails } from "../services/emailService.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
@@ -121,12 +123,10 @@ async function loadStarred() {
     });
 }
 
-
-
 onAuthStateChanged(auth, (user) => {
-      if (!user) return;
-      currentUser = user;
-      loadInbox();
+    if (!user) return;
+    currentUser = user;
+    loadInbox();
 
 });
 
@@ -151,31 +151,36 @@ function highlightText(text, searchText) {
 
 }
 
-function renderInboxEmails(emails) {
 
+function renderInboxEmails(emails) {
+    hideLoader();
     emailList.innerHTML = "";
 
     if (emails.length === 0) {
+        hideLoader();
         emptyState.style.display = "flex";
         return;
     }
 
     emptyState.style.display = "none";
 
-    emails.forEach((email) => {
+    emails.forEach((email, index) => {
 
-        const avatar = email.senderName
-            ? email.senderName.charAt(0).toUpperCase()
-            : "?";
+        const isSent = currentFolder === "sent" || (currentFolder === "starred" && email.senderId === currentUser.uid);
+        const name = isSent ? email.receiverName : email.senderName;
+        const avatar = name ? name.charAt(0).toUpperCase() : "?";
 
-        const preview =
-            email.body.length > 80
-                ? email.body.substring(0, 80) + "..."
-                : email.body;
+        const isRead = isSent ? true : email.receiver.read;
+        const isStarred = isSent ? email.sender.starred : email.receiver.starred;
+
+        const preview = email.body.length > 80
+            ? email.body.substring(0, 80) + "..."
+            : email.body;
 
         const card = document.createElement("article");
 
-        card.className = email.receiver.read ? "email-card" : "email-card unread";
+        card.className = isRead ? "email-card" : "email-card unread";
+        card.style.animationDelay = `${index * 70}ms`;
 
         card.innerHTML = `
 
@@ -184,18 +189,48 @@ function renderInboxEmails(emails) {
             </div>
 
             <div class="email-details">
-                <h3"${email.receiver.read ? "" : "unread"}">${email.senderName}</h3>
-                <p>${preview}</p>
+                <h3 class="${isRead ? "" : "unread"}">${highlightText(name, currentSearch)}</h3>
+                <p>${highlightText(preview, currentSearch)}</p>
 
             </div>
 
             <div class="email-meta">
                 <span>${formatTime(email.createdAt)}</span>
-                <i data-lucide="star"></i>
+              ${isStarred
+                ? `<i class="fa-solid fa-star star-btn starred"></i>`
+                : `<i class="fa-regular fa-star star-btn"></i>`}
 
             </div>
 
         `;
+
+        const starBtn = card.querySelector(".star-btn");
+
+        starBtn.addEventListener("click", async (e) => {
+            e.stopPropagation();
+
+            const result = await toggleStar(
+                email.id,
+                isStarred,
+                currentFolder
+            );
+
+            if (!result.success) return;
+
+            if (currentFolder === "sent") {
+                email.sender.starred = !email.sender.starred;
+            } else {
+                email.receiver.starred = !email.receiver.starred;
+            }
+
+            starBtn.className =
+                (currentFolder === "sent"
+                    ? email.sender.starred
+                    : email.receiver.starred)
+                    ? "fa-solid fa-star star-btn starred"
+                    : "fa-regular fa-star star-btn";
+
+        });
 
         card.addEventListener("click", () => {
             openEmail(email);
@@ -335,6 +370,7 @@ emailStarBtn.addEventListener("click", async () => {
 
 });
 
+
 // delete function 
 
 deleteBtn.addEventListener("click", async () => {
@@ -353,6 +389,7 @@ deleteBtn.addEventListener("click", async () => {
     }
 
 });
+
 
 // effect activelink
 function setActiveLink(link) {
@@ -398,7 +435,6 @@ starredLink.addEventListener("click", () => {
     loadStarred();
 });
 
-
 // skeleton loader 
 
 function showLoader() {
@@ -412,6 +448,19 @@ function hideLoader() {
     emailList.classList.remove("hidden");
 
 }
+
+
+// reply logics
+
+const replyBtn = document.getElementById("reply-btn");
+
+import { openCompose, openReply } from "../compose/compose.js";
+
+replyBtn.addEventListener("click", () => {
+    if (currentFolder === "trash") return;
+    openReply(currentEmail, currentFolder);
+
+});
 
 // search logic 
 
@@ -451,19 +500,3 @@ searchInput.addEventListener("keydown", (e) => {
     }
 
 });
-
-
-// reply logics
-
-const replyBtn = document.getElementById("reply-btn");
-
-import { openCompose, openReply } from "../compose/compose.js";
-
-replyBtn.addEventListener("click", () => {
-    if (currentFolder === "trash") return;
-    openReply(currentEmail, currentFolder);
-
-});
-
-
-
