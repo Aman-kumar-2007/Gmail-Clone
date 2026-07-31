@@ -1125,3 +1125,53 @@ body {
 
 }
 
+/* skeleton */
+
+.hidden{
+    display:none !important;
+}
+
+#skeleton-loader {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+}
+
+.skeleton-card {
+  height: 70px;
+  border-radius: 18px;
+  background: linear-gradient(90deg,
+      #202938 25%,
+      #2D3748 50%,
+      #202938 75%);
+  background-size: 400% 100%;
+  animation: skeleton 1.2s infinite;
+
+}
+
+@keyframes skeleton {
+  0% {
+    background-position: 100% 0;
+
+  }
+
+  100% {
+    background-position: -100% 0;
+
+  }
+
+}
+
+
+/* marking highlight */
+
+mark {
+    background: #fbbc04;
+    color: #111827;
+    padding: 0 2px;
+    border-radius: 2px;
+    font-weight: 500;
+    line-height: inherit;
+}
+
