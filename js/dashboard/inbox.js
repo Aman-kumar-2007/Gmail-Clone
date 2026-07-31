@@ -228,4 +228,13 @@ deleteBtn.addEventListener("click", async () => {
 
 });
 
+// effect activelink
+function setActiveLink(link) {
+    document.querySelectorAll("nav a").forEach(item => {
+        item.classList.remove("active");
 
+    });
+
+    link.classList.add("active");
+
+}
