@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inbox | Gmail Clone</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="../css/inbox.css">
     <link rel="stylesheet" href="../css/toast.css">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -20,7 +21,7 @@
         <div class="nav-center">
             <div class="search-box">
                 <i data-lucide="search"></i>
-                <input type="text" placeholder="Search your mail...">
+                <input type="text" placeholder="Search your mail..." id="search-input">
             </div>
         </div>
         <div class="nav-right">
@@ -55,32 +56,32 @@
 
             <nav>
 
-                <a class="active">
+                <a class="active" id="inbox-link">
                     <i data-lucide="inbox"></i>
                     <span>Inbox</span>
                 </a>
 
-                <a>
+                <a id="sent-link">
                     <i data-lucide="send"></i>
                     <span>Sent</span>
                 </a>
 
-                <a>
+                <a id="draft-link">
                     <i data-lucide="file-pen-line"></i>
                     <span>Drafts</span>
                 </a>
 
-                <a>
+                <a id="starred-link">
                     <i data-lucide="star"></i>
                     <span>Starred</span>
                 </a>
 
-                <a>
+                <a id="trash-link">
                     <i data-lucide="trash-2"></i>
                     <span>Trash</span>
                 </a>
 
-                <a>
+                <a id="settings-link">
                     <i data-lucide="settings"></i>
                     <span>Settings</span>
                 </a>
@@ -175,7 +176,7 @@
 
             </section>
 
-             <!-- 
+            <!-- 
             
             
             EMAIL PAGE SECTION 
@@ -191,12 +192,16 @@
                     </button>
 
                     <div class="email-actions">
-                        <button id="star-btn">
-                            <i data-lucide="star"></i>
+                        <button id="email-star-btn">
+                            <i class="fa-regular fa-star" style="font-size: 20px;"></i>
                         </button>
 
                         <button id="delete-btn">
                             <i data-lucide="trash-2"></i>
+                        </button>
+
+                        <button id="reply-btn">
+                            <i data-lucide="reply-all"></i>
                         </button>
                     </div>
 
