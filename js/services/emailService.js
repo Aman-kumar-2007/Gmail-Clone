@@ -21,6 +21,8 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
+
+
 export async function sendEmail(emailData) {
 
     try {
@@ -126,6 +128,7 @@ export async function sendEmail(emailData) {
     }
 }
 
+
 export function getInboxEmails(uid, callback) {
 
 
@@ -149,24 +152,25 @@ export function getInboxEmails(uid, callback) {
 
 }
 
-export async function markAsRead(emailId){
 
-    try{
-        const emailRef = doc(db,"emails",emailId);
-        
-        await updateDoc(emailRef,{
+export async function markAsRead(emailId) {
+
+    try {
+        const emailRef = doc(db, "emails", emailId);
+
+        await updateDoc(emailRef, {
             "receiver.read": true
         });
 
         return {
-            success:true
+            success: true
         };
 
-    }catch(error){
+    } catch (error) {
 
-        return{
-            success:false,
-            error:error.message
+        return {
+            success: false,
+            error: error.message
         };
 
     }
@@ -227,7 +231,6 @@ export async function deleteEmail(emailId, folder) {
     }
 
 }
-
 
 export function getTrashEmails(uid, callback) {
 
