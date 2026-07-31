@@ -428,3 +428,17 @@ searchInput.addEventListener("input", (e) => {
     renderInboxEmails(filteredEmails);
 
 });
+
+
+// reply logics
+
+const replyBtn = document.getElementById("reply-btn");
+
+import { openCompose, openReply } from "../compose/compose.js";
+
+replyBtn.addEventListener("click", () => {
+    if (currentFolder === "trash") return;
+    openReply(currentEmail, currentFolder);
+
+});
+
