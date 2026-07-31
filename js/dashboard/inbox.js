@@ -62,22 +62,9 @@ function loadInbox() {
 }
 
 onAuthStateChanged(auth, (user) => {
-
-    if (!user) return;
-
-    getInboxEmails(user.uid, (emails) => {
-
-        if (emails.length === 0) {
-            emptyState.style.display = "flex";
-            emailList.innerHTML = "";
-            return;
-        }
-
-        emptyState.style.display = "none";
-
-        renderInboxEmails(emails);
-
-    });
+      if (!user) return;
+      currentUser = user;
+      loadInbox();
 
 });
 
