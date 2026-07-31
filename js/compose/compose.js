@@ -26,6 +26,8 @@ export function openCompose() {
 
 }
 
+
+
 export function closeCompose() {
 
     composeOverlay.classList.remove("active");
@@ -58,7 +60,7 @@ document.addEventListener("keydown", (event) => {
 
 });
 
-omposeForm.addEventListener("submit", handleComposeSubmit);
+composeForm.addEventListener("submit", handleComposeSubmit);
 
 async function handleComposeSubmit(event) {
     event.preventDefault();
@@ -123,6 +125,7 @@ async function handleComposeSubmit(event) {
     }
 
 }
+
 
 export function openReply(email, currentFolder) {
 
