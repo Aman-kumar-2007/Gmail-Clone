@@ -271,3 +271,18 @@ starredLink.addEventListener("click", () => {
     setActiveLink(starredLink);
     loadStarred();
 });
+
+
+// skeleton loader 
+
+function showLoader() {
+    skeletonLoader.classList.remove("hidden");
+    emailList.classList.add("hidden");
+
+}
+
+function hideLoader() {
+    skeletonLoader.classList.add("hidden");
+    emailList.classList.remove("hidden");
+
+}
