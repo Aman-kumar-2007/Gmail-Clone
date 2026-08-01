@@ -153,3 +153,30 @@ ${email.body}
     message.setSelectionRange(0, 0);
 
 }
+
+export function openForward(email) {
+
+    openCompose();
+    receiverEmail.value = "";
+
+    const originalSubject = email.subject.trim();
+    subject.value = originalSubject.match(/^Fwd:/i)
+        ? originalSubject
+        : `Fwd: ${originalSubject}`;
+
+    message.value = `
+
+---------- Forwarded message ----------
+
+From: ${email.senderName} <${email.senderEmail}>
+Date: ${email.createdAt.toDate().toLocaleString()}
+Subject: ${email.subject}
+To: ${email.receiverName} <${email.receiverEmail}>
+
+------------------------------------------------------------
+
+${email.body}`;
+
+    receiverEmail.focus();
+
+}
