@@ -249,6 +249,132 @@
 
             </section>
 
+                        <!-- 
+            
+            SETTING PAGE 
+             
+            -->
+
+            <section id="settings-view" class="hidden">
+
+                <header class="email-header">
+
+                    <button id="settings-back-btn" class="icon-btn">
+                        <i data-lucide="arrow-left"></i>
+                    </button>
+
+                    <h2>Settings</h2>
+
+                </header>
+
+                <div class="settings-container">
+
+                    <div class="settings-card">
+
+                        <h3>Profile</h3>
+
+                        <div class="profile-section">
+
+                            <img id="settings-avatar" src="../assets/default-avatar.png" alt="Profile">
+
+                            <button id="change-avatar-btn" class="secondary-btn">
+                                Change Avatar
+                            </button>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Name</label>
+
+                            <input type="text" id="settings-name" placeholder="Enter your name">
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label>Email</label>
+
+                            <input type="email" id="settings-email" readonly>
+
+                        </div>
+
+                        <button id="save-profile-btn" class="primary-btn">
+
+                            Save Changes
+
+                        </button>
+
+                    </div>
+
+                    <div class="settings-card">
+
+                        <h3>Appearance</h3>
+
+                        <div class="setting-row">
+
+                            <div>
+
+                                <strong>Dark Mode</strong>
+
+                                <p>Switch between light and dark theme.</p>
+
+                            </div>
+
+                            <label class="switch">
+
+                                <input type="checkbox" id="theme-toggle">
+
+                                <span class="slider"></span>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="settings-card">
+
+                        <h3>Email Signature</h3>
+
+                        <textarea id="email-signature" rows="5" placeholder="Regards,Aman Kumar">
+
+            </textarea>
+
+                        <button id="save-signature-btn" class="primary-btn">
+
+                            Save Signature
+
+                        </button>
+
+                    </div>
+
+                    <div class="settings-card">
+
+                        <h3>Account</h3>
+
+                        <div class="account-actions">
+
+                            <button id="change-password-btn" class="secondary-btn">
+
+                                Change Password
+
+                            </button>
+
+                            <button id="logout-settings-btn" class="danger-btn">
+
+                                Logout
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
         </section>
 
 
