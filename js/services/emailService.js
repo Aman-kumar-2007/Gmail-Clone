@@ -465,3 +465,29 @@ export async function saveDraft(draftData) {
     }
 
 }
+
+export async function updateDraft(draftId, draftData) {
+
+    try {
+        await updateDoc(doc(db, "emails", draftId), {
+            receiverEmail: draftData.receiverEmail,
+            subject: draftData.subject,
+            body: draftData.body,
+            updatedAt: serverTimestamp()
+
+        });
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
