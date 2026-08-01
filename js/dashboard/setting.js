@@ -77,3 +77,37 @@ async function saveProfile() {
 
 }
 
+themeToggle.addEventListener("change", async () => {
+
+    const theme = themeToggle.checked ? "dark" : "light";
+    applyTheme(theme);
+
+    await updateTheme(
+        auth.currentUser.uid,
+        theme
+    );
+
+    showToast("Theme updated.", "success");
+
+});
+
+
+saveSignatureBtn.addEventListener("click", saveSignature);
+
+async function saveSignature() {
+    const result =
+        await updateUserProfile(auth.currentUser.uid,
+            {
+                signature: emailSignature.value
+            }
+        );
+
+    if (result.success) {
+        showToast("Signature updated.", "success");
+
+    }
+
+}
+
+
+
