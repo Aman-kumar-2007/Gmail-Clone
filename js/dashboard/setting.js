@@ -16,3 +16,33 @@ const saveProfileBtn = document.getElementById("save-profile-btn");
 const themeToggle = document.getElementById("theme-toggle");
 const emailSignature = document.getElementById("email-signature");
 const saveSignatureBtn = document.getElementById("save-signature-btn");
+
+let unsubscribeProfile = null;
+
+function openSettings() {
+    inboxView.classList.add("hidden");
+    emailView.classList.add("hidden");
+    settingsView.classList.remove("hidden");
+
+    const savedTheme = localStorage.getItem("theme") || "dark";
+    themeToggle.checked = savedTheme === "dark";
+
+    if (unsubscribeProfile) {
+        unsubscribeProfile();
+    }
+
+    unsubscribeProfile = subscribeUserProfile(
+        auth.currentUser.uid,
+        (profile) => {
+            const theme = profile.theme || "dark";
+            applyTheme(theme);
+            themeToggle.checked = theme === "dark";
+            settingsName.value = profile.name;
+            settingsEmail.value = profile.email;
+            emailSignature.value = profile.signature || "";
+            settingsAvatar.src = profile.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.name)}`;
+
+        }
+    );
+
+}
