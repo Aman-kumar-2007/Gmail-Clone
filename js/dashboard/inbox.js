@@ -40,6 +40,14 @@ import { auth } from "../firebase/config.js";
 import { toggleStar, deleteEmail } from "../services/emailService.js";
 import { showToast } from "../utils/toast.js";
 
+function showInboxView() {
+    emailView.classList.add("hidden");
+    if (settingsView) {
+        settingsView.classList.add("hidden");
+    }
+    inboxView.classList.remove("hidden");
+}
+
 let currentFolder = "inbox";
 let currentUser = null;
 let unsubscribe = null;
