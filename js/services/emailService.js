@@ -128,6 +128,68 @@ export async function sendEmail(emailData) {
     }
 }
 
+export async function sendDraft(draftId, emailData) {
+
+    try {
+
+        const firebaseUser = auth.currentUser;
+
+        if (!firebaseUser) {
+            return {
+                success: false,
+                error: "User not authenticated."
+            };
+        }
+
+        const senderResult = await getUserByUID(firebaseUser.uid);
+
+        if (!senderResult.success) {
+            return senderResult;
+        }
+
+        const receiverResult = await getUserByEmail(
+            emailData.receiverEmail.trim().toLowerCase()
+        );
+
+        if (!receiverResult.success) {
+            return {
+                success: false,
+                error: "Recipient not found."
+            };
+        }
+
+        const receiver = receiverResult.data;
+
+        await updateDoc(doc(db, "emails", draftId), {
+
+            receiverId: receiver.uid,
+            receiverName: receiver.name,
+            receiverEmail: receiver.email,
+
+            subject: emailData.subject.trim(),
+            body: emailData.body.trim(),
+
+            isDraft: false,
+
+            updatedAt: serverTimestamp()
+
+        });
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
+
 
 export function getInboxEmails(uid, callback) {
 
