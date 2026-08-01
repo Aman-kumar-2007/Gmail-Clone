@@ -38,7 +38,7 @@ import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/fi
 import { auth } from "../firebase/config.js";
 import { toggleStar, deleteEmail } from "../services/emailService.js";
 import { showToast } from "../utils/toast.js";
-
+import { applyTheme } from "../utils/theme.js";
 
 function showInboxView() {
     emailView.classList.add("hidden");
@@ -154,9 +154,16 @@ function loadDrafts() {
 
 }
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
     if (!user) return;
     currentUser = user;
+
+    const result = await getUserByUID(user.uid);
+
+    if (result.success) {
+        applyTheme(result.data.theme || "dark");
+    }
+
     loadInbox();
 
 });
