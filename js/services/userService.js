@@ -94,3 +94,21 @@ export async function updateUserProfile(uid, data) {
     }
 
 }
+
+export function subscribeUserProfile(uid, callback) {
+    
+    const userRef = doc(db, "users", uid);
+    return onSnapshot(userRef, (snapshot) => {
+
+        if (!snapshot.exists()) return;
+
+        callback({
+            uid: snapshot.id,
+            ...snapshot.data()
+        });
+
+    });
+
+}
+
+
