@@ -415,3 +415,53 @@ export function getStarredEmails(userId, callback) {
         unsubscribeSent();
     };
 }
+
+export async function saveDraft(draftData) {
+
+    try {
+        const docRef = await addDoc(collection(db, "emails"), {
+
+            senderId: draftData.senderId,
+            senderName: draftData.senderName,
+            senderEmail: draftData.senderEmail,
+
+            receiverId: null,
+            receiverName: "",
+            receiverEmail: draftData.receiverEmail,
+
+            subject: draftData.subject,
+            body: draftData.body,
+
+            sender: {
+                starred: false,
+                deleted: false
+            },
+
+            receiver: {
+                read: false,
+                starred: false,
+                deleted: false
+            },
+
+            isDraft: true,
+
+            createdAt: serverTimestamp(),
+            updatedAt: serverTimestamp()
+
+        });
+
+        return {
+            success: true,
+            draftId: docRef.id
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
