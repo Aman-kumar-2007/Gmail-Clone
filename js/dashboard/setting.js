@@ -46,3 +46,34 @@ function openSettings() {
     );
 
 }
+
+function closeSettings() {
+
+    if (unsubscribeProfile) {
+        unsubscribeProfile();
+    }
+    settingsView.classList.add("hidden");
+    inboxView.classList.remove("hidden");
+
+}
+
+settingsLink.addEventListener("click", openSettings);
+settingsBackBtn.addEventListener("click", closeSettings);
+
+lucide.createIcons();
+
+saveProfileBtn.addEventListener("click", saveProfile);
+
+async function saveProfile() {
+
+    const result = await updateUserProfile(auth.currentUser.uid,
+        {
+            name: settingsName.value.trim()
+        }
+    );
+    if (result.success) {
+        showToast("Profile updated.", "success");
+    }
+
+}
+
