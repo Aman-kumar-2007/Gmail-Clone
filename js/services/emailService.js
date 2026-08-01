@@ -1,7 +1,6 @@
 import { db, auth } from "../firebase/config.js";
 
 import {
-
     collection,
     addDoc,
     serverTimestamp,
@@ -108,6 +107,7 @@ export async function sendEmail(emailData) {
                 deleted: false
             },
 
+            isDraft: false,
             createdAt: serverTimestamp()
 
         });
@@ -345,6 +345,7 @@ export function getSentEmails(uid, callback) {
         collection(db, "emails"),
         where("senderId", "==", uid),
         where("sender.deleted", "==", false),
+        where("isDraft", "==", false),
         orderBy("createdAt", "desc")
     );
 
@@ -390,7 +391,7 @@ export function getStarredEmails(userId, callback) {
 
         const allEmails = [...inboxEmails, ...sentEmails];
         allEmails.sort((a, b) => {
-             return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
+            return (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0);
         });
 
         callback(allEmails);
