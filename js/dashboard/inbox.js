@@ -529,3 +529,12 @@ searchInput.addEventListener("keydown", (e) => {
     }
 
 });
+
+// draft 
+const draftLink = document.getElementById("draft-link");
+
+draftLink.addEventListener("click", () => {
+    setActiveLink(draftLink);
+    loadDrafts();
+
+});
