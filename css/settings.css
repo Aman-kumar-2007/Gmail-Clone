@@ -272,3 +272,26 @@ body.light {
   gap: 14px;
   flex-wrap: wrap;
 }
+
+@media(max-width:768px) {
+  #settings-view {
+    padding: 18px;
+  }
+
+  .settings-header h2 {
+    font-size: 1.6rem;
+  }
+
+  .profile-section,
+  .setting-row,
+  .account-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .primary-btn,
+  .secondary-btn,
+  .danger-btn {
+    width: 100%;
+  }
+}
