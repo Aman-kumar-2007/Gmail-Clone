@@ -34,10 +34,11 @@ menuBtn.addEventListener("click", () => {
 });
 
 
-import { getInboxEmails, getTrashEmails, restoreEmail, getSentEmails , getStarredEmails } from "../services/emailService.js";
+import { getInboxEmails, getTrashEmails, restoreEmail, getSentEmails, getStarredEmails, getDraftEmails } from "../services/emailService.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { auth } from "../firebase/config.js";
 import { toggleStar, deleteEmail } from "../services/emailService.js";
+import { showToast } from "../utils/toast.js";
 
 let currentFolder = "inbox";
 let currentUser = null;
