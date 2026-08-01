@@ -5,7 +5,7 @@ const emailList = document.getElementById("email-list");
 const skeletonLoader = document.getElementById("skeleton-loader");
 const deleteBtn = document.getElementById("delete-btn");
 const searchInput = document.getElementById("search-input");
-
+const settingsView = document.getElementById("settings-view");
 
 document.addEventListener("click", (e) => {
     if (window.innerWidth <= 768 &&
@@ -33,12 +33,12 @@ menuBtn.addEventListener("click", () => {
 
 });
 
-
 import { getInboxEmails, getTrashEmails, restoreEmail, getSentEmails, getStarredEmails, getDraftEmails } from "../services/emailService.js";
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 import { auth } from "../firebase/config.js";
 import { toggleStar, deleteEmail } from "../services/emailService.js";
 import { showToast } from "../utils/toast.js";
+
 
 function showInboxView() {
     emailView.classList.add("hidden");
@@ -56,6 +56,7 @@ let currentEmails = [];
 let currentSearch = "";
 
 function loadInbox() {
+    showInboxView();
     currentFolder = "inbox";
     showLoader();
 
@@ -64,8 +65,8 @@ function loadInbox() {
     }
 
     unsubscribe = getInboxEmails(currentUser.uid, (emails) => {
+        currentEmails = emails;
         setTimeout(() => {
-            currentEmails = emails;
             renderInboxEmails(emails);
         }, 300);
 
@@ -76,6 +77,7 @@ function loadInbox() {
 }
 
 function loadTrash() {
+    showInboxView();
     currentFolder = "trash";
     showLoader();
 
@@ -84,8 +86,8 @@ function loadTrash() {
     }
 
     unsubscribe = getTrashEmails(currentUser.uid, (emails) => {
+        currentEmails = emails;
         setTimeout(() => {
-            currentEmails = emails;
             renderInboxEmails(emails);
         }, 300);
 
@@ -95,6 +97,7 @@ function loadTrash() {
 }
 
 function loadSent() {
+    showInboxView();
     currentFolder = "sent";
     showLoader();
 
@@ -103,8 +106,8 @@ function loadSent() {
     }
 
     unsubscribe = getSentEmails(currentUser.uid, (emails) => {
+        currentEmails = emails;
         setTimeout(() => {
-            currentEmails = emails;
             renderInboxEmails(emails);
         }, 300);
 
@@ -113,7 +116,7 @@ function loadSent() {
 }
 
 async function loadStarred() {
-
+    showInboxView();
     currentFolder = "starred";
 
     if (unsubscribe) {
@@ -123,8 +126,8 @@ async function loadStarred() {
     showLoader();
 
     unsubscribe = getStarredEmails(currentUser.uid, (emails) => {
+        currentEmails = emails;
         setTimeout(() => {
-            currentEmails = emails;
             renderInboxEmails(emails);
 
         }, 300);
@@ -150,7 +153,6 @@ function loadDrafts() {
     });
 
 }
-
 
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
@@ -195,7 +197,10 @@ function renderInboxEmails(emails) {
 
     emails.forEach((email, index) => {
 
-        const isSent = currentFolder === "sent" || (currentFolder === "starred" && email.senderId === currentUser.uid);
+        const isSent =
+            currentFolder === "sent" ||
+            currentFolder === "draft" ||
+            (currentFolder === "starred" && email.senderId === currentUser.uid);
         const name = isSent ? email.receiverName : email.senderName;
         const avatar = name ? name.charAt(0).toUpperCase() : "?";
 
@@ -243,6 +248,12 @@ function renderInboxEmails(emails) {
                 isStarred,
                 currentFolder
             );
+            showToast(
+                isStarred
+                    ? "Removed from Starred."
+                    : "Added to Starred.",
+                "info"
+            );
 
             if (!result.success) return;
 
@@ -262,10 +273,14 @@ function renderInboxEmails(emails) {
         });
 
         card.addEventListener("click", () => {
-            openEmail(email);
+
+            if (currentFolder === "draft") {
+                openDraft(email);
+            } else {
+                openEmail(email);
+            }
 
         });
-
         emailList.appendChild(card);
 
     });
@@ -353,8 +368,10 @@ async function openEmail(email) {
 
     if (currentFolder === "trash") {
         replyBtn.style.display = "none";
+        forwardBtn.style.display = "none";
     } else {
         replyBtn.style.display = "flex";
+        forwardBtn.style.display = "flex";
     }
 
     lucide.createIcons();
@@ -381,7 +398,12 @@ emailStarBtn.addEventListener("click", async () => {
     );
 
     if (result.success) {
-
+        showToast(
+            isStarred
+                ? "Removed from Starred."
+                : "Added to Starred.",
+            "info"
+        );
         if (currentFolder === "sent") {
             currentEmail.sender.starred = !currentEmail.sender.starred;
         } else {
@@ -413,6 +435,13 @@ deleteBtn.addEventListener("click", async () => {
     }
 
     if (result.success) {
+
+        if (currentFolder === "trash") {
+            showToast("Email restored.", "success");
+        } else {
+            showToast("Moved to Trash.", "success");
+        }
+
         emailView.classList.add("hidden");
         inboxView.classList.remove("hidden");
     }
@@ -483,7 +512,7 @@ function hideLoader() {
 
 const replyBtn = document.getElementById("reply-btn");
 
-import { openCompose, openReply } from "../compose/compose.js";
+import { openCompose, openReply, openForward, openDraft } from "../compose/compose.js";
 
 replyBtn.addEventListener("click", () => {
     if (currentFolder === "trash") return;
@@ -527,6 +556,15 @@ searchInput.addEventListener("keydown", (e) => {
         searchInput.blur();
 
     }
+
+});
+
+// forward logic
+const forwardBtn = document.getElementById("forward-btn");
+
+forwardBtn.addEventListener("click", () => {
+    if (currentFolder === "trash") return;
+    openForward(currentEmail);
 
 });
 
