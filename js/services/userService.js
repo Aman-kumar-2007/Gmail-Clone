@@ -1,5 +1,4 @@
 import { db } from "../firebase/config.js";
-
 import {
     doc,
     getDoc,
@@ -7,7 +6,9 @@ import {
     getDocs,
     query,
     where,
-    updateDoc
+    updateDoc,
+    onSnapshot,
+    serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 export async function getUserByUID(uid) {
@@ -133,5 +134,3 @@ export async function updateTheme(uid, theme) {
     }
 
 }
-
-
