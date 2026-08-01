@@ -132,6 +132,26 @@ async function loadStarred() {
     });
 }
 
+function loadDrafts() {
+    showInboxView();
+    currentFolder = "draft";
+    showLoader();
+
+    if (unsubscribe) {
+        unsubscribe();
+    }
+    unsubscribe = getDraftEmails(currentUser.uid, (emails) => {
+        currentEmails = emails;
+        setTimeout(() => {
+            renderInboxEmails(emails);
+
+        }, 300);
+
+    });
+
+}
+
+
 onAuthStateChanged(auth, (user) => {
     if (!user) return;
     currentUser = user;
