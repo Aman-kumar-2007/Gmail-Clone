@@ -180,3 +180,62 @@ ${email.body}`;
     receiverEmail.focus();
 
 }
+
+export function openDraft(draft) {
+
+    openCompose();
+    setCurrentDraftId(draft.id);
+    receiverEmail.value = draft.receiverEmail || "";
+    subject.value = draft.subject || "";
+    message.value = draft.body || "";
+    receiverEmail.focus();
+
+}
+
+
+
+async function handleDraftSave() {
+
+    const currentUser = auth.currentUser;
+    if (!currentUser) return;
+
+    const receiver = receiverEmail.value.trim();
+    const subjectText = subject.value.trim();
+    const bodyText = message.value.trim();
+
+    if (!receiver && !subjectText && !bodyText) {
+        return;
+    }
+
+    const senderResult = await getUserByUID(auth.currentUser.uid);
+
+    if (!senderResult.success) {
+        return senderResult;
+    }
+
+    const sender = senderResult.data;
+
+    const draftData = {
+        senderId: sender.uid,
+        senderName: sender.name,
+        senderEmail: sender.email,
+        receiverEmail: receiver,
+        subject: subjectText,
+        body: bodyText
+    };
+
+    if (currentDraftId === null) {
+        const result = await saveDraft(draftData);
+        if (result.success) {
+            showToast("Draft saved.", "success");
+            currentDraftId = result.draftId;
+        }
+
+    } else {
+        await updateDraft(currentDraftId, draftData);
+        showToast("Draft updated.", "info");
+
+    }
+
+}
+
