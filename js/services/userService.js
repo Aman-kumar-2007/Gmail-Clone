@@ -111,4 +111,27 @@ export function subscribeUserProfile(uid, callback) {
 
 }
 
+export async function updateTheme(uid, theme) {
+
+    try {
+        await updateDoc(doc(db, "users", uid), {
+            theme,
+            updatedAt: serverTimestamp()
+        });
+
+        return {
+            success: true
+        };
+
+    } catch (error) {
+
+        return {
+            success: false,
+            error: error.message
+        };
+
+    }
+
+}
+
 
