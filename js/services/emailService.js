@@ -491,3 +491,25 @@ export async function updateDraft(draftId, draftData) {
     }
 
 }
+
+export function getDraftEmails(userId, callback) {
+
+    const q = query(
+        collection(db, "emails"),
+        where("senderId", "==", userId),
+        where("isDraft", "==", true),
+        orderBy("updatedAt", "desc")
+    );
+
+    return onSnapshot(q, (snapshot) => {
+
+        const drafts = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+        }));
+
+        callback(drafts);
+
+    });
+
+}
