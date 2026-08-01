@@ -17,6 +17,7 @@ const themeToggle = document.getElementById("theme-toggle");
 const emailSignature = document.getElementById("email-signature");
 const saveSignatureBtn = document.getElementById("save-signature-btn");
 
+
 let unsubscribeProfile = null;
 
 function openSettings() {
@@ -108,6 +109,4 @@ async function saveSignature() {
     }
 
 }
-
-
 
