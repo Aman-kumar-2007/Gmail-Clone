@@ -60,12 +60,13 @@ body.light {
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box
+  box-sizing: border-box;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease;
 }
 
 body {
   font-family: "Inter", sans-serif;
-  background: linear-gradient(135deg, #08111f, #101b2e);
+  background: linear-gradient(135deg, var(--bg), var(--surface));
   color: var(--text);
   min-height: 100vh;
 }
@@ -78,8 +79,8 @@ body {
   padding: 0 18px;
   position: sticky;
   top: 0;
+  background: var(--bg);
   backdrop-filter: blur(18px);
-  background: rgba(11, 18, 32, .75);
   border-bottom: 1px solid var(--border);
   z-index: 100;
 }
@@ -99,7 +100,7 @@ body {
   font-weight: 800;
   font-size: 1.1rem;
   text-decoration: none;
-  color: #fff
+  color: var(--text)
 }
 
 .icon-btn {
@@ -108,7 +109,7 @@ body {
   border-radius: 12px;
   border: none;
   background: var(--surface-2);
-  color: #fff;
+  color: var(--text);
   cursor: pointer;
   display: grid;
   place-items: center;
@@ -129,6 +130,13 @@ body {
   gap: 12px;
   border-radius: 999px;
   background: var(--surface-2);
+  border: 1px solid #dbe4ff;
+}
+
+.search-box:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+
 }
 
 .search-box input {
@@ -136,7 +144,7 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  color: #fff;
+  color: var(--text);
   font-size: 15px;
 }
 
@@ -159,7 +167,7 @@ body {
 .sidebar {
   width: var(--sidebar-width);
   padding: 20px 14px;
-  background: rgba(17, 24, 39, .9);
+  background: var(--surface);
   border-right: 1px solid var(--border);
   transition: .3s ease;
 }
@@ -188,7 +196,7 @@ body {
   border: none;
   border-radius: 999px;
   background: linear-gradient(135deg, var(--primary), #60a5fa);
-  color: #fff;
+  color: var(--text);
   font-weight: 700;
   display: flex;
   gap: 10px;
@@ -228,11 +236,11 @@ body {
 .sidebar nav a:hover,
 .sidebar nav a.active {
   background: var(--surface-2);
-  color: #fff;
+  color: var(--text);
 }
 
 nav a.active i {
-  color: #4F8DFD;
+  color: var(--primary);
 
 }
 
@@ -257,16 +265,18 @@ nav a:hover {
   border-radius: 22px;
   box-shadow: var(--shadow);
   padding: 20px 24px;
+  box-shadow: 0 20px 45px rgba(37, 99, 235, .18);
 }
 
 .welcome-card h1 {
   font-size: 2rem;
+  color: white;
 }
 
 
 .welcome-card p {
   margin-top: 8px;
-  color: #dbeafe;
+  color: white;
   font-size: .95rem;
 }
 
@@ -311,7 +321,7 @@ nav a:hover {
   border: none;
   border-radius: 12px;
   background: var(--surface-2);
-  color: #fff;
+  color: var(--text);
   cursor: pointer;
   transition: var(--transition);
   display: flex;
@@ -334,8 +344,8 @@ nav a:hover {
   display: flex;
   align-items: center;
   gap: 18px;
-  background: #1A2334;
-  border: 1px solid rgba(255, 255, 255, .08);
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 18px;
   padding: 12px 16px;
   transition: var(--transition);
@@ -343,6 +353,7 @@ nav a:hover {
   transition: .3s;
   opacity: 0;
   transform: translateY(12px);
+  box-shadow: 0 6px 18px rgba(15, 23, 42, .05);
   animation: fadeCard .35s forwards;
 
 }
@@ -367,7 +378,7 @@ nav a:hover {
   height: 40px;
   font-size: 15px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #3b82f6, #06b6d4);
+  border: 2px solid var(--primary);
   display: grid;
   place-items: center;
   font-weight: 700;
@@ -379,7 +390,7 @@ nav a:hover {
 
 .email-details h3 {
   font-size: 1rem;
-  color: #9CA3AF;
+  color: var(--muted);
   font-weight: 500;
 }
 
@@ -650,110 +661,70 @@ nav a:hover {
 /* compose */
 
 .compose-header {
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
   padding: 16px 20px;
-
   border-bottom: 1px solid var(--border);
 
 }
 
 .compose-header h3 {
-
   font-size: 18px;
-
 }
 
 .compose-header button {
-
   background: none;
   border: none;
-
-  color: white;
-
+  color: var(--text);
   cursor: pointer;
 
 }
 
 #compose-form {
-
   display: flex;
   flex-direction: column;
-
 }
 
 #compose-form input,
 #compose-form textarea {
-
   background: transparent;
-
   border: none;
-
   outline: none;
-
-  color: white;
-
+  color: var(--text);
   padding: 16px 20px;
-
   border-bottom: 1px solid var(--border);
-
   font-size: 15px;
-
 }
 
 #compose-form textarea {
-
   resize: none;
-
   height: 250px;
-
 }
 
 .compose-footer {
-
   display: flex;
-
   justify-content: flex-end;
-
   gap: 12px;
-
   padding: 16px 20px;
-
 }
 
 .send-btn {
-
   padding: 10px 22px;
-
   border: none;
-
   border-radius: 999px;
-
   background: var(--primary);
-
   color: white;
-
   cursor: pointer;
-
 }
 
 .cancel-btn {
-
   padding: 10px 22px;
-
   border: none;
-
   border-radius: 999px;
-
   background: var(--surface-2);
-
   color: white;
-
   cursor: pointer;
-
 }
 
 /* profile  */
@@ -768,7 +739,7 @@ nav a:hover {
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #4F8DFD;
+  border: 2px solid var(--primary);
   transition: 0.3s;
 }
 
@@ -780,17 +751,12 @@ nav a:hover {
   position: absolute;
   top: 65px;
   right: 0;
-
   width: 280px;
-
-  background: #1b2235;
-  border: 1px solid rgba(255, 255, 255, .08);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 16px;
-
-  box-shadow: 0 20px 45px rgba(0, 0, 0, .45);
-
+  box-shadow: var(--shadow);
   padding: 18px;
-
   display: none;
   z-index: 1000;
 }
@@ -805,13 +771,13 @@ nav a:hover {
 
 .user-info h4 {
   font-size: 22px;
-  color: #fff;
+  color: var(--text);
   margin-bottom: 6px;
 }
 
 .user-info p {
   font-size: 15px;
-  color: #9ca3af;
+  color: var(--muted);
 
   white-space: nowrap;
   overflow: hidden;
@@ -821,35 +787,28 @@ nav a:hover {
 .profile-dropdown hr {
   border: none;
   height: 1px;
-  background: rgba(255, 255, 255, .08);
+  background: var(--divider);
   margin: 14px 0;
 }
 
 #logout-btn {
   width: 100%;
-
   display: flex;
   align-items: center;
   gap: 12px;
-
   padding: 12px 14px;
-
   border: none;
   border-radius: 12px;
-
   background: transparent;
-  color: #ef4444;
-
+  color: var(--danger);
   font-size: 16px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition: .25s;
 }
 
 #logout-btn:hover {
-  background: rgba(239, 68, 68, .12);
+  background: var(--danger-bg);
 }
 
 #logout-btn i {
@@ -866,12 +825,12 @@ nav a:hover {
 }
 
 #email-view {
-  background: #121b2b;
-  border: 1px solid #263247;
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 18px;
   padding: 40px;
-  color: #f8fafc;
-  box-shadow: 0 10px 35px rgba(0, 0, 0, .25);
+  color: var(--text);
+  box-shadow: var(--shadow);
   margin: 30px;
 
 }
@@ -893,8 +852,8 @@ nav a:hover {
   height: 42px;
   border: none;
   border-radius: 12px;
-  background: #1f2937;
-  color: #fff;
+  background: var(--surface-2);
+  color: var(--text);
   cursor: pointer;
   transition: .25s;
   display: flex;
@@ -903,8 +862,8 @@ nav a:hover {
 }
 
 .email-header button:hover {
-  background: #3B82F6;
-  color: white;
+  background: var(--primary);
+  color: var(--text);
   transform: translateY(-2px);
 }
 
@@ -912,7 +871,8 @@ nav a:hover {
   font-size: 36px;
   font-weight: 700;
   margin: 28px 0;
-  color: #ffffff;
+  color: var(--text);
+
 
 }
 
@@ -921,8 +881,8 @@ nav a:hover {
   align-items: center;
   gap: 18px;
   padding: 20px;
-  background: #182335;
-  border: 1px solid #2c3a52;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   margin-bottom: 35px;
 
@@ -934,9 +894,9 @@ nav a:hover {
   border-radius: 50%;
   object-fit: cover;
   object-position: center;
-  border: 3px solid #4F8DFD;
+  border: 3px solid var(--primary);
   flex-shrink: 0;
-  box-shadow: 0 0 20px rgba(79, 141, 253, .25);
+  box-shadow: var(--shadow);
 
 }
 
@@ -947,35 +907,34 @@ nav a:hover {
 #sender-name {
   font-size: 20px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text);
 
 }
 
 #sender-email {
   margin-top: 4px;
-  color: #94A3B8;
+  color: var(--muted);
   font-size: 15px;
 
 }
 
 #email-date {
   margin-left: auto;
-  color: #94A3B8;
+  color: var(--muted);
   font-size: 14px;
 
 }
 
 
 #email-body {
-  background: #182335;
-  border: 1px solid #2c3a52;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 28px;
   font-size: 16px;
   line-height: 1.9;
-  color: #E2E8F0;
+  color: var(--text);
   white-space: pre-wrap;
-  height: 40vh;
 
 
 }
@@ -983,7 +942,7 @@ nav a:hover {
 #email-view hr {
   border: none;
   height: 1px;
-  background: #2b3548;
+  background: var(--divider);
   margin: 20px 0;
 }
 
@@ -1002,14 +961,14 @@ nav a:hover {
 }
 
 .email-card.unread {
-  background: #24324B;
-  border-left: 6px solid #3B82F6;
-  box-shadow: 0 0 15px rgba(59, 130, 246, .25);
+  background: var(--surface-2);
+  border-left: 6px solid var(--primary);
+  box-shadow: var(--shadow);
 
 }
 
 .email-card.unread h3 {
-  color: #FFFFFF;
+  color: var(--text);
   font-weight: 700;
 
 }
@@ -1160,7 +1119,7 @@ nav a:hover {
   background: none;
   cursor: pointer;
   font-size: 20px;
-  color: #9CA3AF;
+  color: var(--muted);
 }
 
 .star-btn i {
@@ -1169,7 +1128,7 @@ nav a:hover {
 }
 
 .star-btn .fa-solid {
-  color: #FACC15;
+  color: var(--star);
 
 }
 
@@ -1179,15 +1138,15 @@ nav a:hover {
 }
 
 .starred {
-  color: #FFD54F;
-  fill: #FFD54F;
+  color: var(--star);
+  fill: var(--star);
 
 }
 
 /* skeleton */
 
-.hidden{
-    display:none !important;
+.hidden {
+  display: none !important;
 }
 
 #skeleton-loader {
@@ -1201,9 +1160,9 @@ nav a:hover {
   height: 70px;
   border-radius: 18px;
   background: linear-gradient(90deg,
-      #202938 25%,
-      #2D3748 50%,
-      #202938 75%);
+      var(--skeleton-start) 25%,
+      var(--skeleton-middle) 50%,
+      var(--skeleton-end) 75%);
   background-size: 400% 100%;
   animation: skeleton 1.2s infinite;
 
@@ -1226,10 +1185,10 @@ nav a:hover {
 /* marking highlight */
 
 mark {
-    background: #fbbc04;
-    color: #111827;
-    padding: 0 2px;
-    border-radius: 2px;
-    font-weight: 500;
-    line-height: inherit;
+  background: var(--warning);
+  color: #111827;
+  padding: 0 2px;
+  border-radius: 2px;
+  font-weight: 500;
+  line-height: inherit;
 }
