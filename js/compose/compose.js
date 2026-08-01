@@ -1,6 +1,9 @@
 import { sendEmail } from "../services/emailService.js";
 import { showToast } from "../utils/toast.js";
 import { auth } from "../firebase/config.js";
+import { saveDraft, updateDraft, sendDraft } from "../services/emailService.js";
+
+import { getUserByUID } from "../services/userService.js";
 
 const composeBtn = document.getElementById("compose-btn");
 const composeOverlay = document.getElementById("compose-overlay");
@@ -9,6 +12,18 @@ const closeComposeBtn = document.getElementById("close-compose");
 const cancelComposeBtn = document.getElementById("cancel-compose");
 const receiverEmail = document.getElementById("receiver-email");
 const sendBtn = document.getElementById("send-btn");
+
+
+let currentDraftId = null;
+
+export function setCurrentDraftId(draftId) {
+    currentDraftId = draftId;
+}
+
+export function getCurrentDraftId() {
+    return currentDraftId;
+}
+
 
 function setLoading(isLoading) {
     sendBtn.disabled = isLoading;
@@ -19,9 +34,7 @@ function setLoading(isLoading) {
 }
 
 export function openCompose() {
-
     composeOverlay.classList.add("active");
-
     receiverEmail.focus();
 
 }
@@ -29,32 +42,43 @@ export function openCompose() {
 
 
 export function closeCompose() {
-
     composeOverlay.classList.remove("active");
-
     composeForm.reset();
 
 }
 
-composeBtn.addEventListener("click", openCompose);
+composeBtn.addEventListener("click", () => {
+    currentDraftId = null;
+    openCompose();
+});
 
-closeComposeBtn.addEventListener("click", closeCompose);
+closeComposeBtn.addEventListener("click", async () => {
+    await handleDraftSave();
+    closeCompose();
 
-cancelComposeBtn.addEventListener("click", closeCompose);
+});
+
+cancelComposeBtn.addEventListener("click", async () => {
+    await handleDraftSave();
+    closeCompose();
+
+});
 
 
-composeOverlay.addEventListener("click", (event) => {
+composeOverlay.addEventListener("click", async (event) => {
 
     if (event.target === composeOverlay) {
+        await handleDraftSave();
         closeCompose();
     }
 
 });
 
 
-document.addEventListener("keydown", (event) => {
+document.addEventListener("keydown", async (event) => {
 
     if (event.key === "Escape" && composeOverlay.classList.contains("active")) {
+        await handleDraftSave();
         closeCompose();
     }
 
@@ -100,9 +124,15 @@ async function handleComposeSubmit(event) {
 
     try {
         setLoading(true);
-        const result = await sendEmail(emailData);
+        let result;
 
-        console.log(result);
+        if (currentDraftId) {
+            result = await sendDraft(currentDraftId, emailData);
+
+        } else {
+            result = await sendEmail(emailData);
+
+        }
 
         if (!result.success) {
             showToast(result.error, "error");
@@ -110,9 +140,16 @@ async function handleComposeSubmit(event) {
 
         }
 
-        showToast("Email sent successfully.", "success");
+        showToast(
+            subject.value.startsWith("Re:")
+                ? "Reply sent."
+                : subject.value.startsWith("Fwd:")
+                    ? "Email forwarded."
+                    : "Email sent successfully.",
+            "success"
+        );
+        currentDraftId = null;
         composeForm.reset();
-
         closeCompose();
 
     } catch (error) {
@@ -142,9 +179,7 @@ export function openReply(email, currentFolder) {
 ----------------------------
 
 On ${email.createdAt.toDate().toLocaleString()},
-
 ${email.senderName} wrote:
-
 ${email.body}
 
 `;
@@ -238,4 +273,3 @@ async function handleDraftSave() {
     }
 
 }
-
