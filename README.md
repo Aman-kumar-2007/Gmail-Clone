@@ -6,7 +6,7 @@ MailFlow is a modern Gmail-inspired email application built using **HTML, CSS, J
 
 ## 🚀 Live Demo
 
-🔗 Live Website: gmail-clone-aa.netlify.app
+🔗 Live Website: https://gmail-clone-aa.netlify.app/
 
 ---
 
