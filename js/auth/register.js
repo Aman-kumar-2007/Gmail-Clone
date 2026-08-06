@@ -9,6 +9,9 @@ import {
 } from "../utils/validators.js";
 import { showToast } from "../utils/toast.js";
 
+import { redirectIfAuthenticated } from "./authGuard.js";
+redirectIfAuthenticated();
+
 const registerForm = document.getElementById("register-form");
 
 const fullName = document.getElementById("full-name");
