@@ -1,10 +1,17 @@
 import { loginUser } from "../firebase/auth.js";
 import { showToast } from "../utils/toast.js";
+import { redirectIfAuthenticated } from "./authGuard.js";
+import {
+    getUserByUID,
+    getUserByEmail
+} from "../services/userService.js";
 
 import {
     isNotEmpty,
     isValidEmail
 } from "../utils/validators.js";
+
+redirectIfAuthenticated();
 
 const loginForm = document.getElementById("login-form");
 const email = document.getElementById("email");
@@ -45,7 +52,7 @@ async function handleLogin(e) {
 
         if (result.success) {
             loginForm.reset();
-            showToast("Login successful.", "success");
+            showToast("Welcome back!", "success");
             setTimeout(() => {
                 window.location.href = "./inbox.html";
             }, 1500);
