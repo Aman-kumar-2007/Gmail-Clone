@@ -1,3 +1,5 @@
+import { protectPage } from "../auth/authGaurd.js";
+
 const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
 const emptyState = document.getElementById("empty-state");
@@ -167,6 +169,21 @@ onAuthStateChanged(auth, async (user) => {
     loadInbox();
 
 });
+
+function initializeDashboard(user) {
+
+    loadInbox();
+    loadSent();
+    loadDrafts();
+    loadStarred();
+    loadTrash();
+
+}
+
+protectPage((user) => {
+    initializeDashboard(user);
+});
+
 
 function formatTime(timestamp) {
 
