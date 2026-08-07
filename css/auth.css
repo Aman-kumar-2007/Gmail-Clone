@@ -379,16 +379,38 @@ body {
 
 }
 
-@media(max-width:600px) {
+@media (max-width:768px) {
+
+    .container {
+        padding: 20px 18px;
+        gap: 25px;
+    }
+
+    .hero-content p {
+        font-size: .95rem;
+        line-height: 1.6;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 20px;
+    }
 
     .card-content {
-        padding: 28px
+        padding: 28px 22px;
     }
 
-    .heading h2 {
-        font-size: 1.7rem
+    .logo h1 {
+        font-size: 1.6rem;
     }
 
+    .badge {
+        font-size: .85rem;
+        padding: 8px 14px;
+    }
 
 }
 
