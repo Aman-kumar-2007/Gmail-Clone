@@ -66,9 +66,10 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    padding: 50px;
-    gap: 60px;
-
+    gap: 70px;
+    max-width: 1400px;
+    margin: auto;
+    padding: 40px;
 }
 
 .logo {
@@ -104,8 +105,8 @@ body {
 }
 
 .hero-content h2 {
-    font-size: 3rem;
-    line-height: 1.05;
+    font-size: clamp(2rem, 5vw, 3.3rem);
+    line-height: 1.1;
     margin-bottom: 20px;
 }
 
@@ -124,7 +125,10 @@ body {
 }
 
 .stat-card {
-    flex: 1;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     padding: 24px;
     border-radius: 20px;
     background: rgba(255, 255, 255, .05);
