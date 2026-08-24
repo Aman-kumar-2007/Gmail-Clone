@@ -24,6 +24,20 @@ export function getCurrentDraftId() {
     return currentDraftId;
 }
 
+async function getUserSignature() {
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) return "";
+
+    const result = await getUserByUID(currentUser.uid);
+
+    if (!result.success) {
+        return "";
+    }
+
+    return result.data.signature || "";
+}
+
 
 function setLoading(isLoading) {
     sendBtn.disabled = isLoading;
