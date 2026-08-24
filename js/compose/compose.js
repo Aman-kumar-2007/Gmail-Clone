@@ -46,6 +46,7 @@ async function setSignature() {
     message.focus();
 }
 
+
 function setLoading(isLoading) {
     sendBtn.disabled = isLoading;
     sendBtn.textContent = isLoading
@@ -67,7 +68,6 @@ export function closeCompose() {
     composeForm.reset();
 
 }
-
 
 composeBtn.addEventListener("click", async () => {
     currentDraftId = null;
@@ -216,7 +216,7 @@ ${email.body}
 
 }
 
-export function openForward(email) {
+export async function openForward(email) {
 
     openCompose();
     receiverEmail.value = "";
@@ -226,13 +226,18 @@ export function openForward(email) {
         ? originalSubject
         : `Fwd: ${originalSubject}`;
 
-    message.value = `
+    const signature = await getUserSignature();
 
+message.value = `
+${signature ? `${signature}\n\n` : ""}
 ---------- Forwarded message ----------
 
 From: ${email.senderName} <${email.senderEmail}>
+
 Date: ${email.createdAt.toDate().toLocaleString()}
+
 Subject: ${email.subject}
+
 To: ${email.receiverName} <${email.receiverEmail}>
 
 ------------------------------------------------------------
