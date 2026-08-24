@@ -1,4 +1,4 @@
-import { protectPage } from "../auth/authGaurd.js";
+import { protectPage } from "../auth/authGuard.js";
 
 const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
