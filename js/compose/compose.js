@@ -38,6 +38,13 @@ async function getUserSignature() {
     return result.data.signature || "";
 }
 
+async function setSignature() {
+    const signature = await getUserSignature();
+    if (!signature) return;
+    message.value = `\n${signature}`;
+    message.setSelectionRange(0, 0);
+    message.focus();
+}
 
 function setLoading(isLoading) {
     sendBtn.disabled = isLoading;
