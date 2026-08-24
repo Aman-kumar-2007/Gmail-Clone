@@ -1,4 +1,4 @@
-import { protectPage } from "../auth/authGuard.js";
+import { protectPage } from "../auth/authGaurd.js";
 
 const menuBtn = document.getElementById("menu-btn");
 const sidebar = document.getElementById("sidebar");
@@ -50,6 +50,11 @@ function showInboxView() {
     inboxView.classList.remove("hidden");
 }
 
+
+let inboxCount = 0;
+let sentCount = 0;
+let draftCount = 0;
+
 let currentFolder = "inbox";
 let currentUser = null;
 let unsubscribe = null;
@@ -68,6 +73,10 @@ function loadInbox() {
 
     unsubscribe = getInboxEmails(currentUser.uid, (emails) => {
         currentEmails = emails;
+
+        inboxCount = emails.length;
+        document.getElementById("inbox-count").textContent = inboxCount;
+
         setTimeout(() => {
             renderInboxEmails(emails);
         }, 300);
@@ -109,6 +118,10 @@ function loadSent() {
 
     unsubscribe = getSentEmails(currentUser.uid, (emails) => {
         currentEmails = emails;
+
+        sentCount = emails.length;
+        document.getElementById("sent-count").textContent = sentCount;
+
         setTimeout(() => {
             renderInboxEmails(emails);
         }, 300);
@@ -147,6 +160,10 @@ function loadDrafts() {
     }
     unsubscribe = getDraftEmails(currentUser.uid, (emails) => {
         currentEmails = emails;
+
+        draftCount = emails.length;
+        document.getElementById("draft-count").textContent = draftCount;
+
         setTimeout(() => {
             renderInboxEmails(emails);
 
