@@ -73,7 +73,6 @@ function loadInbox() {
 
     unsubscribe = getInboxEmails(currentUser.uid, (emails) => {
         currentEmails = emails;
-
         inboxCount = emails.length;
         document.getElementById("inbox-count").textContent = inboxCount;
 
@@ -118,7 +117,6 @@ function loadSent() {
 
     unsubscribe = getSentEmails(currentUser.uid, (emails) => {
         currentEmails = emails;
-
         sentCount = emails.length;
         document.getElementById("sent-count").textContent = sentCount;
 
@@ -160,7 +158,6 @@ function loadDrafts() {
     }
     unsubscribe = getDraftEmails(currentUser.uid, (emails) => {
         currentEmails = emails;
-
         draftCount = emails.length;
         document.getElementById("draft-count").textContent = draftCount;
 
