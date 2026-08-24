@@ -188,7 +188,7 @@ async function handleComposeSubmit(event) {
 }
 
 
-export function openReply(email, currentFolder) {
+export async function openReply(email, currentFolder) {
 
     openCompose();
 
@@ -198,14 +198,17 @@ export function openReply(email, currentFolder) {
         ? email.subject
         : `Re: ${email.subject}`;
 
-    message.value = `
+   const signature = await getUserSignature();
 
+message.value = `
+${signature ? `${signature}\n\n` : ""}
 ----------------------------
 
 On ${email.createdAt.toDate().toLocaleString()},
-${email.senderName} wrote:
-${email.body}
 
+${email.senderName} wrote:
+
+${email.body}
 `;
 
     message.focus();
