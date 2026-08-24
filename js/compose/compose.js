@@ -68,9 +68,12 @@ export function closeCompose() {
 
 }
 
-composeBtn.addEventListener("click", () => {
+
+composeBtn.addEventListener("click", async () => {
     currentDraftId = null;
     openCompose();
+
+    await setSignature();
 });
 
 closeComposeBtn.addEventListener("click", async () => {
