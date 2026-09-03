@@ -12,14 +12,22 @@ MailFlow is a modern Gmail-inspired email application built using **HTML, CSS, J
 
 ## 📸 Screenshots
 
-> Add screenshots here after deployment.
 
 - Login Page
+  <img width="1470" height="801" alt="Screenshot 2026-09-03 at 5 45 13 PM" src="https://github.com/user-attachments/assets/e3e75738-943c-41ed-b6da-6528a676dcef" />
 - Inbox
+  <img width="1470" height="799" alt="Screenshot 2026-09-03 at 5 46 11 PM" src="https://github.com/user-attachments/assets/b12f2aaa-7a64-40fd-abd8-9970859dd99b" />
+
 - Compose Email
+  <img width="1470" height="799" alt="Screenshot 2026-09-03 at 5 47 02 PM" src="https://github.com/user-attachments/assets/793845ea-e405-4fc2-90e5-233cda86c4fe" />
 - Email Details
+  <img width="1470" height="799" alt="Screenshot 2026-09-03 at 5 47 17 PM" src="https://github.com/user-attachments/assets/f920b756-9c83-47f9-a499-8ffafb773102" />
+
 - Settings
+  <img width="1470" height="799" alt="Screenshot 2026-09-03 at 5 47 38 PM" src="https://github.com/user-attachments/assets/42487eaa-9546-4151-ba61-e560ff37e5d0" />
+
 - Dark / Light Theme
+<img width="1470" height="799" alt="Screenshot 2026-09-03 at 5 47 51 PM" src="https://github.com/user-attachments/assets/19ed350a-4b91-405f-96de-65223ea6000b" />
 
 ---
 
